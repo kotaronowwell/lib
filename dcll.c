@@ -22,113 +22,130 @@
  * @fn
  * ‘o•ûŒüzŠÂƒŠƒXƒg‚Ì‰Šú‰»
  * @brief           ‘o•ûŒüzŠÂƒŠƒXƒg‚Ì‰Šú‰»‚ðs‚¤
- * @param[in,out]   pstDcll ‘o•ûŒüzŠÂƒŠƒXƒg\‘¢‘Ì
+ * @param[in,out]   pDcll ‘o•ûŒüzŠÂƒŠƒXƒg\‘¢‘Ì
  * @retval          ‚È‚µ
  */
-void dcll_init(S_DCLL *pstDcll)
+void dcll_init(DCLL *pDcll)
 {
-    pstDcll->pstPrev = pstDcll;
-    pstDcll->pstNext = pstDcll;
+    pDcll->pPrev = pDcll;
+    pDcll->pNext = pDcll;
 }
 
 /**
  * @fn
  * ‘o•ûŒüzŠÂƒŠƒXƒg‚ÌI—¹
  * @brief           ‘o•ûŒüzŠÂƒŠƒXƒg‚Ì—v‘f‚ð”jŠü‚µAI—¹‚·‚é
- * @param[in,out]   pstDcll ‘o•ûŒüzŠÂƒŠƒXƒg\‘¢‘Ì
+ * @param[in,out]   pDcll ‘o•ûŒüzŠÂƒŠƒXƒg\‘¢‘Ì
  * @retval          ‚È‚µ
  */
-void dcll_term(S_DCLL *pstDcll)
+void dcll_term(DCLL *pDcll)
 {
-    dcll_init(pstDcll);
+    dcll_init(pDcll);
 }
 
 /**
  * @fn
  * ‘o•ûŒüzŠÂƒŠƒXƒg‚Éƒm[ƒh‚ð’Ç‰Á
  * @brief           ‘o•ûŒüzŠÂƒŠƒXƒg‚Ì––”ö‚Éƒm[ƒh‚ð’Ç‰Á‚·‚é
- * @param[in,out]   pstDcll ‘o•ûŒüzŠÂƒŠƒXƒg\‘¢‘Ì
- * @param[in,out]   pstNode ’Ç‰Á‚·‚éƒm[ƒh
+ * @param[in,out]   pDcll ‘o•ûŒüzŠÂƒŠƒXƒg\‘¢‘Ì
+ * @param[in,out]   pNode ’Ç‰Á‚·‚éƒm[ƒh
  * @retval          ‚È‚µ
  */
-void dcll_append(S_DCLL *pstDcll, S_DCLL_NODE *pstNode)
+void dcll_append(DCLL *pDcll, DCLL_NODE *pNode)
 {
-    pstNode->pstPrev = pstDcll->pstPrev;
-    pstNode->pstNext = pstDcll;
-    pstDcll->pstPrev->pstNext = pstNode;
-    pstDcll->pstPrev = pstNode;
+    pNode->pPrev = pDcll->pPrev;
+    pNode->pNext = pDcll;
+    pDcll->pPrev->pNext = pNode;
+    pDcll->pPrev = pNode;
+}
+
+/**
+ * @fn
+ * ‘o•ûŒüzŠÂƒŠƒXƒg‚Éƒm[ƒh‚ð’Ç‰Á
+ * @brief           ‘o•ûŒüzŠÂƒŠƒXƒg‚Ìæ“ª‚Éƒm[ƒh‚ð’Ç‰Á‚·‚é
+ * @param[in,out]   pDcll ‘o•ûŒüzŠÂƒŠƒXƒg\‘¢‘Ì
+ * @param[in,out]   pNode ’Ç‰Á‚·‚éƒm[ƒh
+ * @retval          ‚È‚µ
+ */
+void dcll_prepend(DCLL *pDcll, DCLL_NODE *pNode)
+{
+    pNode->pPrev = pDcll;
+    pNode->pNext = pDcll->pNext;
+    pDcll->pNext->pPrev = pNode;
+    pDcll->pPrev = pNode;
 }
 
 /**
  * @fn
  * ‘o•ûŒüzŠÂƒŠƒXƒg‚Ìƒm[ƒh‚ðíœ
  * @brief           ‘o•ûŒüzŠÂƒŠƒXƒg‚Ìƒm[ƒh‚ðíœ‚·‚é
- * @param[in,out]   pstDcll ‘o•ûŒüzŠÂƒŠƒXƒg\‘¢‘Ì
- * @param[in,out]   pstNode ’Ç‰Á‚·‚éƒm[ƒh
+ * @param[in,out]   pDcll ‘o•ûŒüzŠÂƒŠƒXƒg\‘¢‘Ì
+ * @param[in,out]   pNode ’Ç‰Á‚·‚éƒm[ƒh
  * @retval          ‚È‚µ
  */
-void dcll_delete(S_DCLL_NODE *pstNode)
+void dcll_delete(DCLL_NODE *pNode)
 {
-    pstNode->pstPrev->pstNext = pstNode->pstNext;
-    pstNode->pstNext->pstPrev = pstNode->pstPrev;
-    pstNode->pstPrev = pstNode;
-    pstNode->pstNext = pstNode;
+    pNode->pPrev->pNext = pNode->pNext;
+    pNode->pNext->pPrev = pNode->pPrev;
+    pNode->pPrev = pNode;
+    pNode->pNext = pNode;
 }
 
 /**
  * @fn
  * ‘o•ûŒüzŠÂƒŠƒXƒg‚ÌÅ‰‚Ìƒm[ƒh‚ðŽæ“¾
  * @brief           ‘o•ûŒüzŠÂƒŠƒXƒg‚ÌÅ‰‚Ìƒm[ƒh‚ðŽæ“¾‚·‚é
- * @param[in,out]   pstDcll ‘o•ûŒüzŠÂƒŠƒXƒg\‘¢‘Ì
+ * @param[in,out]   pDcll ‘o•ûŒüzŠÂƒŠƒXƒg\‘¢‘Ì
  * @retval          ‚È‚µ
  */
-S_DCLL_NODE volatile *dcll_get_first(S_DCLL *pstDcll)
+DCLL_NODE volatile *dcll_get_first(DCLL *pDcll)
 {
-    return pstDcll->pstPrev;
+    return pDcll->pPrev;
 }
 
 /**
  * @fn
  * ‘o•ûŒüzŠÂƒŠƒXƒg‚É—v‘f‚ð’Ç‰Á
  * @brief           —v‘f‚Ì‘O‚É—v‘f‚ð‘}“ü‚·‚é
- * @param[in,out]   pstNode     ‘ÎÛ‚Ìƒm[ƒh
- * @param[in,out]   pstEntry    ’Ç‰Á‚·‚éƒGƒ“ƒgƒŠ[
+ * @param[in,out]   pNode     ‘ÎÛ‚Ìƒm[ƒh
+ * @param[in,out]   pEntry    ’Ç‰Á‚·‚éƒGƒ“ƒgƒŠ[
  * @retval          ‚È‚µ
  */
-void dcll_insert_prev(S_DCLL_NODE *pstNode, S_DCLL_NODE *pstEntry)
+void dcll_ins_prev(DCLL_NODE *pNode, DCLL_NODE *pEntry)
 {
-    pstEntry->pstPrev = pstNode->pstPrev;
-    pstEntry->pstNext = pstNode;
-    pstNode->pstPrev->pstNext = pstEntry;
-    pstNode->pstPrev = pstEntry;
+    pEntry->pPrev = pNode->pPrev;
+    pEntry->pNext = pNode;
+    pNode->pPrev->pNext = pEntry;
+    pNode->pPrev = pEntry;
 }
 
 /**
  * @fn
  * ‘o•ûŒüzŠÂƒŠƒXƒg‚É—v‘f‚ð’Ç‰Á
  * @brief           —v‘f‚ÌŒã‚ë‚É—v‘f‚ð‘}“ü‚·‚é
- * @param[in,out]   pstNode     ‘ÎÛ‚Ìƒm[ƒh
- * @param[in,out]   pstEntry    ’Ç‰Á‚·‚éƒGƒ“ƒgƒŠ[
+ * @param[in,out]   pNode     ‘ÎÛ‚Ìƒm[ƒh
+ * @param[in,out]   pEntry    ’Ç‰Á‚·‚éƒGƒ“ƒgƒŠ[
  * @retval          ‚È‚µ
  */
-void dcll_insert_next(S_DCLL_NODE *pstNode, S_DCLL_NODE *pstEntry)
+void dcll_ins_next(DCLL_NODE *pNode, DCLL_NODE *pEntry)
 {
-    pstEntry->pstPrev = pstNode;
-    pstEntry->pstNext = pstNode->pstNext;
-    pstNode->pstNext->pstPrev = pstEntry;
-    pstNode->pstNext = pstEntry;
+    pEntry->pPrev = pNode;
+    pEntry->pNext = pNode->pNext;
+    pNode->pNext->pPrev = pEntry;
+    pNode->pNext = pEntry;
 }
 
 /**
  * @fn
  * ‘o•ûŒüzŠÂƒŠƒXƒg‚Ìó‘ÔŽæ“¾
  * @brief           ‘o•ûŒüzŠÂƒŠƒXƒg‚ª‹ó‚©‚Ç‚¤‚©‚ð’²‚×‚é
- * @param[in]       pstDcll ‘o•ûŒüzŠÂƒŠƒXƒg\‘¢‘Ì
- * @retval          TRUE    ‘o•ûŒüƒŠƒXƒg‚Í‹ó
+ * @param[in]       pDcll ‘o•ûŒüzŠÂƒŠƒXƒg\‘¢‘Ì
+ * @retval          DCLL_STATE_EMPTY    ‘o•ûŒüƒŠƒXƒg‚Í‹ó
+ * @retval          DCLL_STATE_EXIST    ‘o•ûŒüƒŠƒXƒg‚Í‹ó‚Å‚È‚¢
  */
-E_DCLL_STATE dcll_get_stat(S_DCLL *pstDcll)
+DCLL_STATE dcll_get_state(DCLL_NODE *pDcll)
 {
-    return ((pstDcll->pstPrev == pstDcll->pstNext) ? E_DCLL_STATE_EMPTY : E_DCLL_STATE_EXIST);
+    return ((pDcll->pPrev == pDcll->pNext) ? DCLL_STATE_EMPTY : DCLL_STATE_EXIST);
 }
 
 /* End of File */

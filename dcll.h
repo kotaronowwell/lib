@@ -18,29 +18,29 @@
 #ifndef DCLL_H
 #define DCLL_H
 
-typedef struct tagS_DCLL {
-    struct tagS_DCLL volatile *pstPrev;
-    struct tagS_DCLL volatile *pstNext;
-} S_DCLL, S_DCLL_NODE;
+typedef struct tagDCLL {
+    struct tagDCLL volatile *pPrev;
+    struct tagDCLL volatile *pNext;
+} DCLL, DCLL_NODE;
 
-typedef enum tagE_DCLL_STATE {
-    E_DCLL_STATE_EMPTY,     /**< Doubly-circularly-linked-list empty        */
-    E_DCLL_STATE_EXIST      /**< Doubly-circularly-linked-list not empty    */
-} E_DCLL_STATE;
+typedef enum tagDCLL_STATE {
+    DCLL_STATE_EMPTY,       /**< Doubly-circularly-linked-list empty        */
+    DCLL_STATE_EXIST        /**< Doubly-circularly-linked-list not empty    */
+} DCLL_STATE;
 
 #ifdef __cpulspuls
 extern "C" {
 #endif /* __cpulspuls */
 
-void dcll_init(S_DCLL *pstDcll);
-void dcll_term(S_DCLL *pstDcll);
-void dcll_append(S_DCLL *pstDcll, S_DCLL_NODE *pstNode);
-void dcll_prepend(S_DCLL *pstDcll, S_DCLL_NODE *pstNode);
-void dcll_delete(S_DCLL_NODE *pstNode);
-S_DCLL_NODE volatile *dcll_get_first(S_DCLL *pstDcll);
-void dcll_insert_prev(S_DCLL_NODE *pstNode, S_DCLL_NODE *pstEntry);
-void dcll_insert_next(S_DCLL_NODE *pstNode, S_DCLL_NODE *pstEntry);
-E_DCLL_STATE dcll_get_stat(S_DCLL_NODE *pstDcll);
+void dcll_init(DCLL *pDcll);
+void dcll_term(DCLL *pDcll);
+void dcll_append(DCLL *pDcll, DCLL_NODE *pNode);
+void dcll_prepend(DCLL *pDcll, DCLL_NODE *pNode);
+void dcll_delete(DCLL_NODE *pNode);
+DCLL_NODE volatile *dcll_get_first(DCLL *pDcll);
+void dcll_ins_prev(DCLL_NODE *pNode, DCLL_NODE *pEntry);
+void dcll_ins_next(DCLL_NODE *pNode, DCLL_NODE *pEntry);
+DCLL_STATE dcll_get_state(DCLL_NODE *pDcll);
 
 #ifdef __cpulspuls
 }

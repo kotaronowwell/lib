@@ -22,104 +22,104 @@
  * @fn
  * LIFOノードの初期化
  * @brief           LIFOノードの初期化を行う
- * @param[in,out]   pstLifo LIFOノード構造体
+ * @param[in,out]   pLifo LIFOノード構造体
  * @retval          なし
  */
-void lifo_node_init(S_LIFO_NODE *pstNode)
+void lifo_node_init(LIFO_NODE *pNode)
 {
-    pstNode->pstPrev = 0;
+    pNode->pPrev = 0;
 }
 
 /**
  * @fn
  * LIFOノードの終了
  * @brief           LIFOノードの終了処理を行う
- * @param[in,out]   pstLifo LIFOノード構造体
+ * @param[in,out]   pLifo LIFOノード構造体
  * @retval          なし
  */
-void lifo_node_term(S_LIFO_NODE *pstNode)
+void lifo_node_term(LIFO_NODE *pNode)
 {
-    lifo_node_init(pstNode);
+    lifo_node_init(pNode);
 }
 
 /**
  * @fn
  * LIFOの初期化
  * @brief           LIFOの初期化を行う
- * @param[in,out]   pstLifo LIFO構造体
+ * @param[in,out]   pLifo LIFO構造体
  * @retval          なし
  */
-void lifo_init(S_LIFO *pstLifo)
+void lifo_init(LIFO *pLifo)
 {
-    lifo_node_init((S_LIFO *)pstLifo);
+    lifo_node_init((LIFO *)pLifo);
 }
 
 /**
  * @fn
  * LIFOの終了
  * @brief           LIFOの終了処理を行う
- * @param[in,out]   pstLifo LIFO構造体
+ * @param[in,out]   pLifo LIFO構造体
  * @retval          なし
  */
-void lifo_term(S_LIFO *pstLifo)
+void lifo_term(LIFO *pLifo)
 {
-    lifo_init(pstLifo);
+    lifo_init(pLifo);
 }
 
 /**
  * @fn
  * LIFOの先頭ノードを取得する
  * @brief           LIFOの先頭ノードを調べる
- * @param[in,out]   pstLifo LIFO構造体
+ * @param[in,out]   pLifo LIFO構造体
  * @retval          なし
  */
-volatile S_LIFO_NODE *lifo_get_top(S_LIFO *pstLifo)
+volatile LIFO_NODE *lifo_get_top(LIFO *pLifo)
 {
-    return pstLifo->pstPrev;
+    return pLifo->pPrev;
 }
 
 /**
  * @fn
  * LIFOにノードをプッシュする
  * @brief           LIFOにノードをプッシュする処理を行う
- * @param[in,out]   pstLifo LIFO構造体
- * @param[in,out]   pstNode プッシュするLIFOノード
+ * @param[in,out]   pLifo LIFO構造体
+ * @param[in,out]   pNode プッシュするLIFOノード
  * @retval          なし
  */
-void lifo_push(S_LIFO *pstLifo, S_LIFO_NODE *pstNode)
+void lifo_push(LIFO *pLifo, LIFO_NODE *pNode)
 {
-    pstNode->pstPrev = pstLifo->pstPrev;
-    pstLifo->pstPrev = pstNode;
+    pNode->pPrev = pLifo->pPrev;
+    pLifo->pPrev = pNode;
 }
 
 /**
  * @fn
  * LIFOのノードをポップする
  * @brief           LIFOのノードをポップする処理を行う
- * @param[in,out]   pstLifo LIFO構造体
+ * @param[in,out]   pLifo LIFO構造体
  * @retval          ポップされたLIFOノード
  */
-volatile S_LIFO_NODE *lifo_pop(S_LIFO *pstLifo)
+volatile LIFO_NODE *lifo_pop(LIFO *pLifo)
 {
-	volatile S_LIFO_NODE *pstNode;
+	volatile LIFO_NODE *pNode;
 
-    pstNode = lifo_get_top(pstLifo);
-    pstLifo->pstPrev = pstLifo->pstPrev->pstPrev;
+    pNode = lifo_get_top(pLifo);
+    pLifo->pPrev = pLifo->pPrev->pPrev;
 
-    return pstNode;
+    return pNode;
 }
 
 /**
  * @fn
  * LIFOの状態を調べる
  * @brief           LIFOのノードをポップする処理を行う
- * @param[in,out]   pstLifo LIFO構造体
- * @retval          TRUE    LIFOは空
- * @retval          FALSE   LIFOは空でない
+ * @param[in,out]   pLifo LIFO構造体
+ * @retval          LIFO_STATE_EMPTY    LIFOは空
+ * @retval          LIFO_STATE_EXIST    LIFOは空でない
  */
-E_LIFO_STATE lifo_get_stat(S_LIFO *pstLifo)
+LIFO_STATE lifo_get_stat(LIFO *pLifo)
 {
-    return ((pstLifo->pstPrev == 0) ? E_LIFO_STATE_EMPTY : E_LIFO_STATE_EXIST);
+    return ((pLifo->pPrev == 0) ? LIFO_STATE_EMPTY : LIFO_STATE_EXIST);
 }
 
 /* End of File */
